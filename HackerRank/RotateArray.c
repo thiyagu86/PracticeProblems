@@ -21,33 +21,48 @@ char** split_string(char*);
 // return a;
 //
 int* rotLeft(int a_count, int* a, int d, int* result_count) {
-    int* temp = malloc(a_count * sizeof(int));
-//int temp[100000]={0};
-printf("Intitial: ");
-for(int iVal = 0;iVal < a_count;iVal++)
-{
-    printf(" %d",a[iVal]);
-}
-printf("\n");
-static int nStartPos = 0;
-for(int nVal = d;nVal < a_count;nVal++)
-{
-    //int nStartPos = 0;
-    temp[nStartPos] = a[nVal];
-    nStartPos++;
-}
-printf("The value of nStartPos after rotation is done: [%d]\n",nStartPos);
-for(int nVal = 0;nVal < d;nVal++)
-{
-    temp[nStartPos] = a[nVal];
-    nStartPos++;
-}
-*result_count = nStartPos;
-printf("The value of a_count is: [%d], nStartPos is: [%d]\n",a_count,nStartPos);
-printf("The value of result count is: %d ",*result_count);
-for(int iVal = 0;iVal < a_count;iVal++)
-    printf(" %d",temp[iVal]);
-return temp;
+    int* temp = (int*)malloc(a_count * sizeof(int));
+    printf("Intitial: ");
+    for(int iVal = 0;iVal < a_count;iVal++)
+    {
+        printf(" %d",a[iVal]);
+    }
+    printf("\n");
+
+    static int nStartPos = 0;
+    for(int nVal = d;nVal < a_count;nVal++)
+    {
+        *(temp+nStartPos) = *(a+nVal);
+        nStartPos++;
+    }
+    printf("After Copying elements to be rotated: \n");
+    for(int iVal = 0;iVal < a_count;iVal++)
+    {
+        printf(" %d",*(temp+iVal));
+    }
+    printf("\n");
+    printf("The value of nStartPos after rotation is done: [%d]\n",nStartPos);
+    for(int nVal = 0;nVal < d;nVal++)
+    {
+        *(temp+nStartPos) = *(a+nVal);
+        nStartPos++;
+    }
+    *result_count = nStartPos;
+    printf("The value of a_count is:[%d], nStartPos is: [%d],result_count is:[%d]\n",a_count,nStartPos,*result_count);
+    
+    printf("The value of incoming array A is: \n");
+    for(int iVal = 0;iVal < a_count;iVal++)
+    {
+        printf("%d \n",*(a+iVal));
+    }
+    
+    printf("The value of outgoing array temp is: \n");
+    for(int iVal = 0;iVal < a_count;iVal++)
+    {
+        printf("%d \n",*(temp+iVal));
+    }
+    //free(temp);
+    return temp;
 }
 
 int main()
@@ -87,6 +102,12 @@ int main()
     int result_count;
     int* result = rotLeft(a_count, a, d, &result_count);
     printf("INSIDE MAIN: value of result_count is: %d \n",result_count);
+    
+    for(int iVal = 0;iVal < result_count;iVal++)
+    {
+        //a[iVal] = temp[iVal];
+        printf(" %d",result[iVal]);
+    }
 
     for (int i = 0; i < result_count; i++) {
         fprintf(fptr, "%d", *(result + i));
